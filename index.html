@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f7d8e8">
+<title>For Bubuu ♡ — 30 September</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+:root{
+  --pink:#f48fb1;
+  --pink2:#ffd6e5;
+  --lav:#cdb4e9;
+  --lav2:#8f78b9;
+  --cream:#fff7f1;
+  --ink:#49334f;
+  --deep:#272044;
+  --white:#fffdfd;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family:Nunito,system-ui,sans-serif;
+  color:var(--ink);
+  background:#221d3b;
+}
+#app{position:relative;width:100%;height:100%;overflow:hidden}
+.screen{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  padding:28px 20px 82px;
+  opacity:0;transform:translateX(35px) scale(.985);
+  pointer-events:none;
+  transition:opacity .55s ease,transform .55s ease;
+  overflow:auto;
+}
+.screen.active{opacity:1;transform:none;pointer-events:auto}
+.pastel{background:radial-gradient(circle at 20% 10%,#fff 0,#fff0f6 35%,#f7d7e8 100%)}
+.lavender{background:radial-gradient(circle at 80% 15%,#fff 0,#eee5ff 38%,#c6b2e4 100%)}
+.night{
+  background:radial-gradient(circle at 50% 20%,#4e477b 0,#28234c 45%,#14142c 100%);
+  color:white;
+}
+.hero-photo{
+  background:linear-gradient(#28234caa,#28234cee),url('images/memory3.jpg') center/cover;
+  color:white;
+}
+h1,h2,h3,p{margin-top:0}
+h1,h2,.script{font-family:"Dancing Script",cursive}
+h1{font-size:clamp(44px,12vw,72px);line-height:.95;margin-bottom:18px}
+h2{font-size:clamp(34px,9vw,52px);margin-bottom:14px}
+h3{font-size:21px;margin-bottom:8px}
+p{line-height:1.55}
+.center{text-align:center;max-width:560px}
+.small{font-size:13px;opacity:.8}
+.sub{font-size:17px;max-width:470px}
+.btn{
+  border:0;border-radius:999px;padding:13px 23px;
+  background:linear-gradient(135deg,#f47fae,#c58be8);
+  color:white;font-weight:800;font-size:15px;
+  box-shadow:0 10px 25px #b55d9150;
+  cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;
+}
+.btn:active{transform:scale(.96)}
+.ghost{background:#ffffffaa;color:var(--ink);box-shadow:none;border:1px solid #ffffff}
+.nav{
+  position:fixed;z-index:50;left:0;right:0;bottom:12px;
+  display:flex;justify-content:center;gap:10px;pointer-events:none;
+}
+.nav button{pointer-events:auto}
+.back{position:fixed;z-index:51;left:16px;top:14px}
+.music{position:fixed;z-index:51;right:16px;top:14px}
+.topdots{position:fixed;z-index:51;top:16px;left:50%;transform:translateX(-50%);display:flex;gap:5px}
+.dot{width:6px;height:6px;border-radius:50%;background:#ffffff80}
+.dot.on{width:18px;border-radius:10px;background:#fff}
+.pastel .dot.on,.lavender .dot.on{background:#8f5b85}
+.card{
+  width:min(92vw,600px);
+  background:#fffaf8dd;
+  border:1px solid #ffffff;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 18px 45px #5b3e6520;
+}
+.paper{
+  background:#fffaf5;
+  color:#503d55;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 12px 35px #221b3b35;
+  max-height:48vh;overflow:auto;
+  text-align:left;
+  white-space:pre-line;
+}
+.float{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.heart{
+  position:absolute;font-size:20px;opacity:.55;
+  animation:float 7s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(110vh) rotate(0deg);opacity:0}
+  15%{opacity:.65} to{transform:translateY(-15vh) rotate(220deg);opacity:0}
+}
+.memory-list{display:grid;gap:14px;width:min(94vw,620px);max-height:68vh;overflow:auto;padding:4px}
+.memory{
+  display:grid;grid-template-columns:100px 1fr;gap:14px;
+  align-items:center;background:#fffaf9dd;border-radius:20px;padding:10px;
+  box-shadow:0 8px 22px #6a456420;
+}
+.memory img{width:100px;height:110px;object-fit:cover;border-radius:14px}
+.memory p{font-size:13px;margin:0}
+.timeline{border-left:3px solid #ef8caf55;padding-left:13px}
+.envelopes{display:grid;gap:10px;width:min(92vw,560px)}
+.envelope{
+  border:0;border-radius:16px;padding:15px;text-align:left;
+  font-weight:800;color:var(--ink);background:#ffe0eb;cursor:pointer;
+  box-shadow:0 6px 15px #8e5b7718;
+}
+.envelope:nth-child(2){background:#eadcff}
+.envelope:nth-child(3){background:#dff5ed}
+.envelope:nth-child(4){background:#e8f0ff}
+.envelope:nth-child(5){background:#fff0c8}
+#envelopeMsg{margin-top:12px}
+.gamebox{width:min(92vw,600px);height:48vh;position:relative;border-radius:24px;background:#fff9fb88;overflow:hidden;border:1px solid #ffffff}
+.catch{position:absolute;border:0;background:none;font-size:34px;cursor:pointer;animation:pop .2s}
+@keyframes pop{from{transform:scale(.5)}to{transform:scale(1)}}
+.score{font-weight:800;margin:8px}
+.appreciate{display:grid;gap:10px;width:min(92vw,600px);max-height:65vh;overflow:auto}
+.app-card{background:#fffaf7;border-radius:18px;padding:16px 18px;box-shadow:0 8px 20px #6a456415;text-align:left}
+.app-card span{font-size:20px;margin-right:7px}
+.final{
+  max-width:620px;text-align:center;
+  font-size:18px;line-height:1.65;
+}
+.signature{font-family:"Dancing Script",cursive;font-size:36px;margin-top:14px}
+.stars{letter-spacing:9px;opacity:.8;margin:12px 0}
+.pulse{animation:pulse 1.7s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.06)}}
+.note{font-size:12px;opacity:.75;margin-top:12px}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- 1 -->
+<section class="screen hero-photo active" data-screen="1">
+  <div class="float" id="float1"></div>
+  <div class="center">
+    <div class="small">A little place made for you ♡</div>
+    <h1>Hey…<br>you found this. ♡</h1>
+    <p class="sub">Before you do anything else,<br>promise me you'll stay for a few minutes?</p>
+    <button class="btn pulse" onclick="go(2)">Enter →</button>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="screen pastel" data-screen="2">
+  <div class="float" id="float2"></div>
+  <div class="center">
+    <div class="stars">✦ ✧ ♡ ✧ ✦</div>
+    <h2>Happy Anniversary<br>My Bubuu ♡</h2>
+    <p class="sub">I made this because sometimes words aren't enough.</p>
+    <p class="script" style="font-size:30px">30 September</p>
+    <button class="btn" onclick="go(3)">♡ Start our little journey</button>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="screen pastel" data-screen="3">
+  <button class="btn ghost back" onclick="go(2)">←</button>
+  <div class="center">
+    <h2>Our Little Memories ✨</h2>
+    <p class="small">Some moments, forever in my heart…</p>
+  </div>
+  <div class="memory-list">
+    <article class="memory">
+      <img src="images/memory1.jpg" alt="Memory one">
+      <div><h3>The beginning 🌱</h3><p>SEEE BABIEEE THE FIRST TIME I CAME IN MY HOUSE ANDDDDD SEEE USS AWWWWWEEE🥹🥹🥹🫂🫂🫂🫂😘😘💋💋💋</p></div>
+    </article>
+    <article class="memory">
+      <img src="images/memory2.jpg" alt="Memory two">
+      <div><h3>Our future 🥹</h3><p>Bubuuu hamala future We will definitely make Abhyaanshh and Samaiyra jealous byy showing oul Love and oul manifestation 🥹🥹🫂😘😘💋💋💋💋</p></div>
+    </article>
+    <article class="memory">
+      <img src="images/memory3.jpg" alt="Memory three">
+      <div><h3>Our promise ♡</h3><p>Babieee I can nevel Live without YOUHHH These days Have made me so happy and I have always been so thankful to godd Fol giving me such a lovely WIFEYY🥺🥺🥺🫂🫂😘😘💋💋💋ITCH A PLOMICHH TO EACH OTHER WE WILL ALWAYSSS BE EACH OTHER'SS🥺🥺🥺🫂🫂😘💋💋💋💋😘😘🫂🫂🫂</p></div>
+    </article>
+  </div>
+  <button class="btn" onclick="go(4)">Next memory →</button>
+</section>
+
+<!-- 4 -->
+<section class="screen lavender" data-screen="4">
+  <button class="btn ghost back" onclick="go(3)">←</button>
+  <div class="center">
+    <div style="font-size:36px">🌙 ✨</div>
+    <h2>When You're Sad</h2>
+    <p class="small">Open this whenever you're feeling sad 🥺</p>
+  </div>
+  <div class="paper">Listen babiee I understand youuu bacchaa ....mujhe pata hai aap abhi kin chizo se bit lahe ho but this is fine melaa daarlingggggg...Maii hun na aapke chaath hamesha and FOLEVELLL My bubuu awwweel leeeeee🥺🥺🫂🫂🫂😘😘😘💋💋💋NEVEL BE SAD NANUU ITCH ALL PART OF LIFE PLS DON'T CRY THIS MUVH NA NANNUU🥺🥺🥺🥺🥺I plomichh bacchu mainu aapko hachane ka mela pula best dunga daarlingggggg bubuuu mwaaaaaaaauuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu 🥺🥺🥺🫂🫂🫂🫂💋💋😘😘😘😘😘,LOYEE TOO 👊👊👊👊</div>
+  <button class="btn" onclick="go(5)">Need a little more? →</button>
+</section>
+
+<!-- 5 -->
+<section class="screen pastel" data-screen="5">
+  <button class="btn ghost back" onclick="go(4)">←</button>
+  <div class="center">
+    <h2>♡ Open When…</h2>
+    <p>Pick a little letter.</p>
+  </div>
+  <div class="envelopes">
+    <button class="envelope" onclick="openEnv('sad')">💗 Open when you're sad</button>
+    <button class="envelope" onclick="openEnv('laugh')">💜 Open when you need a laugh</button>
+    <button class="envelope" onclick="openEnv('sleep')">🌙 Open before sleeping</button>
+    <button class="envelope" onclick="openEnv('miss')">💚 Open when you miss me</button>
+    <button class="envelope" onclick="openEnv('special')">⭐ Open when you need a reminder of how special you are</button>
+  </div>
+  <div id="envelopeMsg" class="card center" style="display:none"></div>
+  <button class="btn" onclick="go(6)">Next →</button>
+</section>
+
+<!-- 6 -->
+<section class="screen pastel" data-screen="6">
+  <button class="btn ghost back" onclick="go(5)">←</button>
+  <div class="center">
+    <h2>Catch the Hearts ♡</h2>
+    <p>Tap the hearts as fast as you can!<br><b>You have 15 seconds.</b></p>
+    <div class="score">Hearts caught: <span id="score">0</span> · <span id="timer">15</span>s</div>
+  </div>
+  <div class="gamebox" id="gamebox"></div>
+  <button class="btn" id="gameStart" onclick="startGame()">Start ♡</button>
+  <button class="btn" onclick="go(7)">Next →</button>
+</section>
+
+<!-- 7 -->
+<section class="screen pastel" data-screen="7">
+  <button class="btn ghost back" onclick="go(6)">←</button>
+  <div class="center">
+    <h2>Things I Appreciate About You ♡</h2>
+    <p class="small">And probably a lot more…</p>
+  </div>
+  <div class="appreciate">
+    <div class="app-card"><span>🥺</span>My bubuu You don't know howww MUCHH youl one smile mean to me....You ale my whole world shonaaaa🥺🥺🥺🫂🫂😘😘💋💋</div>
+    <div class="app-card"><span>🫂</span>The way you always take cale of me and ALWAYSS Scold me like a little baby is the best thing I would have wished that God gave to me babiee 🥺🥺🫂🫂😘😘😘💋</div>
+    <div class="app-card"><span>🥹</span>You know youu alee chooo beautiful ANDD CUTUU sometimes I look at you and ask goddd "Yehh mujhe kaise mil gayiii bhagwannn thank youuu soo MUCHHHH🥹🥹🥹🫂🫂🫂😘😘💋💋"</div>
+    <div class="app-card"><span>👊</span>You knoww I appreciate EVELYTHING about you , I just adore you sooo sooo soo muchhu and you know whyy bcz I LOVEEE YOUHH IDIOT 👊👊👊🥺🥺🥺🫂🫂😘😘💋💋</div>
+  </div>
+  <button class="btn" onclick="go(8)">Next →</button>
+</section>
+
+<!-- 8 -->
+<section class="screen lavender" data-screen="8">
+  <button class="btn ghost back" onclick="go(7)">←</button>
+  <div class="center">
+    <div style="font-size:34px">💌</div>
+    <h2>Open when you're sad</h2>
+  </div>
+  <div class="paper">I know life can feel heavy sometimes. But you're stronger than you think.
+
+You've been through so much and still you keep going.
+
+That's not just brave, that's beautiful.
+
+And I'm so proud of you.
+
+You're enough. Always. ♡</div>
+  <button class="btn" onclick="go(9)">Next →</button>
+</section>
+
+<!-- 9 -->
+<section class="screen night" data-screen="9">
+  <div class="float" id="float9"></div>
+  <div class="center">
+    <div class="stars">✦ · ✧ · ✦</div>
+    <h2>And that's still<br>not everything…</h2>
+    <p class="sub">There's one thing I want you to remember.</p>
+    <button class="btn" onclick="go(10)">One last thing ♡</button>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="screen hero-photo" data-screen="10">
+  <div class="center final">
+    <div class="stars">✦ ✧ ♡ ✧ ✦</div>
+    <p><b>MY BABIEE MY SHONAAAAAAA</b>, I NEVEL INAGINED BACCHA KII TODAY WE WOULD BE CELEBRATING OULLL 1 YEAL AND 2 ND ANIVELSALYYYY NANNNUUU🥹🥹🥹🫂🫂🫂😘😘💋🫂</p>
+    <p>BUT HELE WE ALEEEEEE ANDD I LOVEEE YOUUU SOOO SOOO SOOO SOOO SOOO SOOO SOOO SOOO SOOO SOOO MUCHHHH NANNUUUUUU YOUU REALLY CHANGED MY LIFE SHONAAAA🥺🥺🥺🥹🥹🥹🫂💋💋😘😘😘</p>
+    <p>I can't imagine my days without you, Bubuu… 🥺🫂</p>
+    <p>Pls mela bubuu always be happy okieeee and HOPE this idiot made you happy by this website 🥺🥺🥺👊👊👊👊</p>
+    <div class="signature">Happy Anniversary, Bubuu ♡</div>
+    <div class="small">— Duduuu</div>
+  </div>
+</section>
+
+<div class="topdots" id="dots"></div>
+<div class="nav">
+  <button class="btn" id="nextBtn" onclick="next()">Next →</button>
+</div>
+</div>
+
+<script>
+let current=1;
+const total=10;
+const screens=[...document.querySelectorAll('.screen')];
+const dots=document.getElementById('dots');
+for(let i=1;i<=total;i++){const d=document.createElement('span');d.className='dot'+(i===1?' on':'');dots.appendChild(d)}
+function update(){
+  screens.forEach((s,i)=>s.classList.toggle('active',i===current-1));
+  [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===current-1));
+  document.getElementById('nextBtn').style.display=(current===1||current===10)?'none':'block';
+  window.scrollTo(0,0);
+}
+function go(n){current=Math.max(1,Math.min(total,n));update()}
+function next(){if(current<total)go(current+1)}
+
+function hearts(id,count=18){
+ const box=document.getElementById(id); if(!box)return;
+ for(let i=0;i<count;i++){
+  const h=document.createElement('div');h.className='heart';
+  h.textContent=['♡','♥','✦','✧'][Math.floor(Math.random()*4)];
+  h.style.left=(Math.random()*100)+'%';
+  h.style.animationDelay=(Math.random()*6)+'s';
+  h.style.animationDuration=(5+Math.random()*5)+'s';
+  h.style.fontSize=(14+Math.random()*18)+'px';
+  box.appendChild(h);
+ }
+}
+hearts('float1',24); hearts('float2',20); hearts('float9',18);
+
+const envText={
+ sad:"Hey Bubuu… if you're sad, come back here. Take a breath, okay? You matter so much. ♡",
+ laugh:"Okay idiot 😂 You officially need to smile now. Consider this your tiny emergency happiness button. 👊",
+ sleep:"Goodnight, Bubuu 🌙 I hope you sleep peacefully and wake up with a lighter heart tomorrow. ♡",
+ miss:"If you miss me, remember: somewhere in this little website is a tiny piece of my heart made just for you. 🫂",
+ special:"In case you forgot today: you are loved, appreciated, and incredibly special. Never let a bad day convince you otherwise. ✨"
+};
+function openEnv(k){
+ const box=document.getElementById('envelopeMsg');
+ box.style.display='block';
+ box.innerHTML='<h3>♡ A little note for you</h3><p>'+envText[k]+'</p>';
+}
+
+let timerId=null,gameRunning=false,score=0,timeLeft=15;
+function startGame(){
+ if(gameRunning)return;
+ gameRunning=true;score=0;timeLeft=15;
+ document.getElementById('score').textContent=score;
+ document.getElementById('timer').textContent=timeLeft;
+ const box=document.getElementById('gamebox');
+ box.innerHTML='';
+ clearInterval(timerId);
+ spawnHeart();
+ timerId=setInterval(()=>{
+  timeLeft--; document.getElementById('timer').textContent=timeLeft;
+  if(timeLeft<=0){
+   clearInterval(timerId);gameRunning=false;
+   box.innerHTML='<div style="position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:30px"><div><div style="font-size:42px">🥹❤️</div><h3>You caught '+score+' hearts!</h3><p>Honestly… you deserve way more than that.</p></div></div>';
+  }
+ },1000);
+}
+function spawnHeart(){
+ if(!gameRunning)return;
+ const box=document.getElementById('gamebox');
+ const b=document.createElement('button');b.className='catch';b.textContent=['❤️','💗','💕','💖'][Math.floor(Math.random()*4)];
+ b.style.left=(5+Math.random()*82)+'%';b.style.top=(5+Math.random()*78)+'%';
+ b.onclick=()=>{score++;document.getElementById('score').textContent=score;b.remove();spawnHeart()};
+ box.appendChild(b);
+ setTimeout(()=>{if(b.isConnected)b.remove(); if(gameRunning)spawnHeart()},900);
+}
+update();
+</script>
+</body>
+</html>
